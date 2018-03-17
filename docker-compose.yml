@@ -1,0 +1,15 @@
+version: '2.1'
+services:
+  academy-api:
+    build: .
+    environment:
+      PORT: '5000'
+      SHOW_URLS: 'true'
+      COURSES_URL: '192.168.99.101'
+      COURSES_PORT: '4001'
+      COURSES_ENTRY: 'courses/'
+      ROOMS_URL: '192.168.99.101'
+      ROOMS_PORT: '4002'
+      ROOMS_ENTRY: 'rooms/'
+    ports:
+      - '5000:5000'
