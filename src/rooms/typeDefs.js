@@ -1,4 +1,4 @@
-export const coursesTypeDef = `
+export const roomsTypeDef = `
 
 type Room {
     Id: Int!
