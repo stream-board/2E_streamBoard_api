@@ -1,5 +1,5 @@
 export const sessionsTypeDef = `
-type Session {
+type User{
     id: Int!
     email: String!
     provider: String!
@@ -9,6 +9,10 @@ type Session {
     image: String
 }
 
+type Data{
+    data: User! 
+}
+
 input SessionInput {
     email: String!
     password: String!
@@ -16,5 +20,5 @@ input SessionInput {
 `;
 
 export const sessionsMutations = `
-    createSession(session: SessionInput!): Session!
+    createSession(session: SessionInput!): Data!
 `;

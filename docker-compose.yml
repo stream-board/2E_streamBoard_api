@@ -1,4 +1,4 @@
-version: '2.1'
+version: '2'
 services:
   streamboard_api:
     build: .
@@ -11,8 +11,8 @@ services:
       ROOMS_URL: '192.168.99.101'
       ROOMS_PORT: '4002'
       ROOMS_ENTRY: 'rooms/'
-      AUTHENTICATION_URL: '192.168.99.101'
+      AUTHENTICATION_URL: 'ec2-54-224-164-98.compute-1.amazonaws.com'
       AUTHENTICATION_PORT: '4003'
-      AUTHENTICATION_ENTRY: 'auth/'
+      AUTHENTICATION_ENTRY: 'auth'
     ports:
       - '5000:5000'
