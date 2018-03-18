@@ -11,5 +11,8 @@ services:
       ROOMS_URL: '192.168.99.101'
       ROOMS_PORT: '4002'
       ROOMS_ENTRY: 'rooms/'
+      AUTHENTICATION_URL: '192.168.99.101'
+      AUTHENTICATION_PORT: '4003'
+      AUTHENTICATION_ENTRY: 'auth/'
     ports:
       - '5000:5000'

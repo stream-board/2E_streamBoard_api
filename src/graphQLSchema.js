@@ -5,6 +5,11 @@ import { makeExecutableSchema } from 'graphql-tools';
 import { mergeSchemas } from './utilities';
 
 import {
+	sessionsMutations,
+	sessionsTypeDef
+} from './sessions/typeDefs';
+
+import {
 	coursesMutations,
 	coursesQueries,
 	coursesTypeDef
@@ -16,6 +21,7 @@ import{
 	roomsTypeDef
 } from './rooms/typeDefs';
 
+import sessionsResolvers from './sessions/resolvers';
 import coursesResolvers from './courses/resolvers';
 import roomsResolvers from './rooms/resolvers';
 
@@ -24,6 +30,7 @@ const mergedTypeDefs = mergeSchemas(
 	[
 		'scalar JSON',
 		coursesTypeDef,
+		sessionsTypeDef,
 		roomsTypeDef
 	],
 	[
@@ -32,6 +39,7 @@ const mergedTypeDefs = mergeSchemas(
 	],
 	[
 		coursesMutations,
+		sessionsMutations,
 		roomsMutations
 	]
 );
@@ -42,6 +50,7 @@ export default makeExecutableSchema({
 	resolvers: merge(
 		{ JSON: GraphQLJSON }, // allows scalar JSON
 		roomsResolvers,
+		sessionsResolvers,
 		coursesResolvers
 	)
 });

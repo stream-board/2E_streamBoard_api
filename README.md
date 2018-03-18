@@ -1,4 +1,4 @@
-# sa_academy_api
+# streamBoard_api
 
 API Gateway
 
