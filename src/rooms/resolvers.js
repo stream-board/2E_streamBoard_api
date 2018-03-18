@@ -4,7 +4,7 @@ import { url, port, entryPoint } from './server';
 const URL = `http://${url}:${port}/${entryPoint}`;
 
 const resolvers = {
-	Query: {
+/*	Query: {
 		allRooms: (_) =>
 			getRequest(URL, ''),
 		roomById: (_, { id }) =>
@@ -15,7 +15,7 @@ const resolvers = {
 			generalRequest(`${URL}`, 'POST', room),
 		deleteRoom: (_, { id }) =>
 			generalRequest(`${URL}/${id}`, 'DELETE')
-	}
+	}*/
 };
 
 export default resolvers;

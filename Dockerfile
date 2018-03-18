@@ -1,14 +1,14 @@
 FROM node:carbon-slim
 
 # Create app directory
-WORKDIR /git/streamBoard_api
+WORKDIR /git/streamboard_api
 
 # Install app dependencies
-COPY package.json /git/streamBoard_api/
+COPY package.json /git/streamboard_api/
 RUN npm install
 
 # Bundle app source
-COPY . /git/streamBoard_api/
+COPY . /git/streamboard_api/
 RUN npm run prepublish
 
 CMD [ "npm", "run", "runServer" ]

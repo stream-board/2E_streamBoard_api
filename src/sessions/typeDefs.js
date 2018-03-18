@@ -1,13 +1,13 @@
 export const sessionsTypeDef = `
-/*type Session {
-    id: Integer!
+type Session {
+    id: Int!
     email: String!
     provider: String!
     uid: String!
     name: String!
     nickname: String!
     image: String
-}*/
+}
 
 input SessionInput {
     email: String!
