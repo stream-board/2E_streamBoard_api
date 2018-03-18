@@ -14,11 +14,6 @@ input RoomInput {
     DescriptionRoom: String
     IdOwner: Int!
 }
-
-input RoomDelete{
-    Id: Int!
-    IdOwner: Int!
-}
 `;
 
 export const roomsQueries = `
@@ -28,5 +23,4 @@ export const roomsQueries = `
 
 export const roomsMutations = `
     createRoom(room: RoomInput!): Room!
-    deleteRoom(id: Int!): RoomDelete!
 `;

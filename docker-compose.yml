@@ -1,6 +1,6 @@
 version: '2.1'
 services:
-  academy-api:
+  streamboard_api:
     build: .
     environment:
       PORT: '5000'

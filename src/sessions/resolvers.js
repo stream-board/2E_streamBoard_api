@@ -5,10 +5,10 @@ const URL = `http://${url}:${port}/${entryPoint}`;
 
 const resolvers = {
 	Mutation: {
-		createAuthentication: (_, { user }) =>
-			generalRequest(`${URL}/sing_in`, 'POST', user),
-/*		deleteAuthentication: (_, { id, user }) =>
-			generalRequest(`${URL}/sing_out`, 'DELETE', user)*/
+		createSession: (_, { session }) =>
+			generalRequest(`${URL}/sing_in`, 'POST', session),
+/*		deleteSession: (_, { id, session }) =>
+			generalRequest(`${URL}/sing_out`, 'DELETE', session)*/
 	}
 };
 

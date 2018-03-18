@@ -1,4 +1,4 @@
-# streamBoard_api
+# streamboard_api
 
 API Gateway
 
