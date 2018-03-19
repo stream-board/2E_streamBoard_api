@@ -7,6 +7,10 @@ type ChatMessage {
     message: String!,
     sender: String!,
 }
+
+input ChatRoomInput {
+    id: Int!
+}
 `;
 
 export const chatQueries = `
@@ -14,6 +18,6 @@ export const chatQueries = `
 `;
 
 export const chatMutations = `
-    createChatRoom(id: Int!): ChatRoom!,
+    createChatRoom(chatRoom: ChatRoomInput!): ChatRoom!,
     deleteChatRoom(id: Int!): ChatRoom!
 `;
