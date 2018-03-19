@@ -22,9 +22,9 @@ import{
 } from './rooms/typeDefs';
 
 import {
-    chatMutations,
-    chatQueries,
-    chatTypeDef
+        chatMutations,
+        chatQueries,
+        chatTypeDef
 } from './chat/typeDefs';
 
 import sessionsResolvers from './sessions/resolvers';
@@ -39,18 +39,18 @@ const mergedTypeDefs = mergeSchemas(
 		coursesTypeDef,
 		sessionsTypeDef,
 		roomsTypeDef,
-        chatTypeDef
+            chatTypeDef
 	],
 	[
 		coursesQueries,
 		roomsQueries,
-        chatQueries
+            chatQueries
 	],
 	[
 		coursesMutations,
 		sessionsMutations,
 		roomsMutations,
-        chatMutations
+            chatMutations
 	]
 );
 
