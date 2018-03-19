@@ -6,7 +6,7 @@ const URL = `http://${url}:${port}/${entryPoint}`;
 const resolvers = {
 	Mutation: {
 		createSession: (_, { session }) =>
-			generalRequest(`${URL}/sing_in`, 'POST', session),
+			generalRequest(`${URL}/sign_in`, 'POST', session),
 /*		deleteSession: (_, { id, session }) =>
 			generalRequest(`${URL}/sing_out`, 'DELETE', session)*/
 	}
