@@ -26,10 +26,17 @@ import {
 	boardTypeDef
 } from './board/typeDefs'
 
+import {
+  chatMutations,
+  chatQueries,
+  chatTypeDef
+} from './chat/typeDefs';
+
 import sessionsResolvers from './sessions/resolvers';
 import coursesResolvers from './courses/resolvers';
 import roomsResolvers from './rooms/resolvers';
 import boardResolvers from './board/resolvers';
+import chatResolvers from './chat/resolvers';
 
 // merge the typeDefs
 const mergedTypeDefs = mergeSchemas(
@@ -39,16 +46,19 @@ const mergedTypeDefs = mergeSchemas(
 		sessionsTypeDef,
 		roomsTypeDef,
 		boardTypeDef
+    chatTypeDef
 	],
 	[
 		coursesQueries,
-		roomsQueries
+		roomsQueries,
+     chatQueries
 	],
 	[
 		coursesMutations,
 		sessionsMutations,
 		roomsMutations,
 		boardMutations
+    chatMutations
 	]
 );
 
@@ -61,5 +71,6 @@ export default makeExecutableSchema({
 		sessionsResolvers,
 		coursesResolvers,
 		boardResolvers
+    chatResolvers
 	)
 });

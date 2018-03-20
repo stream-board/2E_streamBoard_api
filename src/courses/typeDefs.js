@@ -23,3 +23,4 @@ export const coursesMutations = `
     deleteCourse(id: Int!): Course!
     updateCourse(id: Int!, course: CourseInput!): Course!
 `;
+
