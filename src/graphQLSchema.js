@@ -9,11 +9,6 @@ import {
 	sessionsTypeDef
 } from './sessions/typeDefs';
 
-import {
-	coursesMutations,
-	coursesQueries,
-	coursesTypeDef
-} from './courses/typeDefs';
 
 import{
 	roomsMutations,
@@ -33,7 +28,6 @@ import {
 } from './chat/typeDefs';
 
 import sessionsResolvers from './sessions/resolvers';
-import coursesResolvers from './courses/resolvers';
 import roomsResolvers from './rooms/resolvers';
 import boardResolvers from './board/resolvers';
 import chatResolvers from './chat/resolvers';
@@ -42,19 +36,16 @@ import chatResolvers from './chat/resolvers';
 const mergedTypeDefs = mergeSchemas(
 	[
 		'scalar JSON',
-		coursesTypeDef,
 		sessionsTypeDef,
 		roomsTypeDef,
 		boardTypeDef,
     	chatTypeDef
 	],
 	[
-		coursesQueries,
 		roomsQueries,
      	chatQueries
 	],
 	[
-		coursesMutations,
 		sessionsMutations,
 		roomsMutations,
 		boardMutations,
@@ -69,7 +60,6 @@ export default makeExecutableSchema({
 		{ JSON: GraphQLJSON }, // allows scalar JSON
 		roomsResolvers,
 		sessionsResolvers,
-		coursesResolvers,
 		boardResolvers,
     	chatResolvers
 	)
