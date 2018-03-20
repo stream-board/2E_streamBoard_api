@@ -1,6 +1,6 @@
 version: '2'
 services:
-  streamboard_api:
+  streamboard-api:
     build: .
     environment:
       PORT: '5000'
