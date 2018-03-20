@@ -6,7 +6,7 @@ const URL = `http://${url}:${port}/${entryPoint}`;
 const resolvers = {
     Mutation: {
         createBoardRoom: (_, { room }) => {
-            return generalRequest(`${URL}/room`, 'POST', room).then((data) => data)
+            return generalRequest(`${URL}/room/`, 'POST', room).then((data) => data)
         }
     }
 };

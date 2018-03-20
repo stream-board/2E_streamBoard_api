@@ -45,20 +45,20 @@ const mergedTypeDefs = mergeSchemas(
 		coursesTypeDef,
 		sessionsTypeDef,
 		roomsTypeDef,
-		boardTypeDef
-    chatTypeDef
+		boardTypeDef,
+    	chatTypeDef
 	],
 	[
 		coursesQueries,
 		roomsQueries,
-     chatQueries
+     	chatQueries
 	],
 	[
 		coursesMutations,
 		sessionsMutations,
 		roomsMutations,
-		boardMutations
-    chatMutations
+		boardMutations,
+    	chatMutations
 	]
 );
 
@@ -70,7 +70,7 @@ export default makeExecutableSchema({
 		roomsResolvers,
 		sessionsResolvers,
 		coursesResolvers,
-		boardResolvers
-    chatResolvers
+		boardResolvers,
+    	chatResolvers
 	)
 });
