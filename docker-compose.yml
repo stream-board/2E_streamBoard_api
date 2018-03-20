@@ -17,5 +17,8 @@ services:
       BOARD_URL: '192.168.99.101'
       BOARD_PORT: '8000'
       BOARD_ENTRY: 'api'
+      CHAT_URL: '192.168.99.101'
+      CHAT_PORT: '4004'
+      CHAT_ENTRY: 'chat-room'
     ports:
       - '5000:5000'
