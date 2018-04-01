@@ -1,15 +1,21 @@
 export const roomsTypeDef = `
 
 type Room {
-    Id: Int!
+    IdRoom: Int!
     NameRoom: String!
     DescriptionRoom: String
     IdOwner: Int!
-    participants: [Int]
+    participants: [Participant]
+}
+
+type Participant {
+    Id: Int!
+    IdRoom: Int!
+    IdParticipant: Int!
 }
 
 input RoomInput {
-    Id: Int
+    IdRoom: Int
     NameRoom: String
     DescriptionRoom: String
     IdOwner: Int!
