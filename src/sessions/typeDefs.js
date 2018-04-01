@@ -19,6 +19,10 @@ input SessionInput {
 }
 `;
 
+export const sessionsQueries = `
+    userById(id: Int!): Data!
+`;
+
 export const sessionsMutations = `
     createSession(session: SessionInput!): Data!
 `;

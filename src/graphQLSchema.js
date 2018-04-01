@@ -6,6 +6,7 @@ import { mergeSchemas } from './utilities';
 
 import {
 	sessionsMutations,
+	sessionsQueries,
 	sessionsTypeDef
 } from './sessions/typeDefs';
 
@@ -42,6 +43,7 @@ const mergedTypeDefs = mergeSchemas(
     	chatTypeDef
 	],
 	[
+		sessionsQueries,
 		roomsQueries,
      	chatQueries
 	],
