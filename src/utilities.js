@@ -7,12 +7,14 @@ import { formatError } from 'graphql';
  * @param {string} method
  * @param {object} [body]
  * @param {boolean} [fullResponse]
+ * @param {object} [headers]
  * @return {Promise.<*>} - promise with the error or the response object
  */
-export async function generalRequest(url, method, body, fullResponse) {
+export async function generalRequest(url, method, body, fullResponse, headers) {
 	const parameters = {
 		method,
 		uri: encodeURI(url),
+		headers: headers,
 		body,
 		json: true,
 		resolveWithFullResponse: fullResponse

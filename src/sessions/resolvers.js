@@ -7,7 +7,7 @@ const URL1 = `http://${url}:${port}/${entryPoint1}`;
 const resolvers = {
     Query: {
         userById: (_, { id }) =>
-            generalRequest(`${URL1}/${id}/`, 'GET'),
+			generalRequest(`${URL1}/${id}/`, 'GET'),
     },
 	Mutation: {
 		createSession: (_, { session }) =>
