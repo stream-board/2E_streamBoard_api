@@ -9,6 +9,16 @@ type User{
     image: String
 }
 
+type LoginData{
+    id: Int!
+    email: String!
+    uid: String!
+    name: String!
+    nickname: String!
+    image: String
+    token: String
+}
+
 type Data{
     data: User! 
 }
@@ -24,5 +34,5 @@ export const sessionsQueries = `
 `;
 
 export const sessionsMutations = `
-    createSession(session: SessionInput!): Data!
+    createSession(session: SessionInput!): LoginData!
 `;

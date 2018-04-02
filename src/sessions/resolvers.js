@@ -11,7 +11,11 @@ const resolvers = {
     },
 	Mutation: {
 		createSession: (_, { session }) =>
-			generalRequest(`${URL}/sign_in`, 'POST', session),
+			generalRequest(`${URL}/sign_in`, 'POST', session, true).then((response) => {
+				let user = response.body.data
+				user['token'] = response.headers['access-token']
+				return user
+			}),
 /*		deleteSession: (_, { id, session }) =>
 			generalRequest(`${URL}/sing_out`, 'DELETE', session)*/
 	}

@@ -45,7 +45,7 @@ const mergedTypeDefs = mergeSchemas(
 	[
 		sessionsQueries,
 		roomsQueries,
-     	chatQueries
+    chatQueries
 	],
 	[
 		sessionsMutations,
