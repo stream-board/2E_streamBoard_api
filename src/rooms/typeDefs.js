@@ -1,18 +1,29 @@
 export const roomsTypeDef = `
 
 type Room {
+    idRoom: Int!
+    nameRoom: String!
+    descriptionRoom: String
+    idOwner: Int!
+    Participants: [Participant]
+}
+
+type Participant {
     Id: Int!
-    NameRoom: String!
-    DescriptionRoom: String
-    IdOwner: Int!
-    participants: [Int]
+    IdRoom: Int!
+    IdParticipant: Int!
 }
 
 input RoomInput {
-    Id: Int
-    NameRoom: String
-    DescriptionRoom: String
-    IdOwner: Int!
+    idRoom: Int
+    nameRoom: String
+    descriptionRoom: String
+    idOwner: Int!
+}
+
+input RoomDelete {
+  idRoom: Int!,
+  idOwner: Int!
 }
 `;
 
@@ -23,4 +34,5 @@ export const roomsQueries = `
 
 export const roomsMutations = `
     createRoom(room: RoomInput!): Room!
+    deleteRoom(roomDelete: RoomDelete!): Room!
 `;
