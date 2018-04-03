@@ -14,8 +14,10 @@ const resolvers = {
 			generalRequest(`${URL}/sign_in`, 'POST', session, true).then((response) => {
 				let user = response.body.data
 				user['token'] = response.headers['access-token']
+				console.log(user)
 				return user
 			}),
+			
 /*		deleteSession: (_, { id, session }) =>
 			generalRequest(`${URL}/sing_out`, 'DELETE', session)*/
 	}
