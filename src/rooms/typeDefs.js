@@ -9,9 +9,9 @@ type Room {
 }
 
 type Participant {
-    Id: Int!
-    IdRoom: Int!
-    IdParticipant: Int!
+    id: Int!
+    idRoom: Int!
+    idParticipant: Int!
 }
 
 input CreateRoomInput {
@@ -22,7 +22,7 @@ input CreateRoomInput {
 
 input JoinRoomInput {
     idRoom: Int!
-    idUser: Int!
+    idOwner: Int!
 }
 
 input RoomDelete {
