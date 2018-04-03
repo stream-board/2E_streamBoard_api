@@ -6,15 +6,15 @@ const URL = `http://${url}:${port}/${entryPoint}`;
 const resolvers = {
 	Query: {
 		allRooms: (_) =>
-			getRequest(URL, ''),
+			generalRequest(`${URL}/`, 'GET'),
 		roomById: (_, { id }) =>
 			generalRequest(`${URL}/${id}`, 'GET'),
 	},
 	Mutation: {
-		createRoom: (_, { course }) =>
+		createRoom: (_, { room }) =>
 			generalRequest(`${URL}`, 'POST', room),
-		deleteRoom: (_, { id }) =>
-			generalRequest(`${URL}/${id}`, 'DELETE')
+		deleteRoom: (_, { roomDelete }) =>
+			generalRequest(`${URL}/${roomDelete.idRoom}`, 'DELETE', roomDelete)
 	}
 };
 
