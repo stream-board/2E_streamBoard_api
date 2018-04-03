@@ -13,6 +13,8 @@ const resolvers = {
 	Mutation: {
 		createRoom: (_, { room }) =>
 			generalRequest(`${URL}`, 'POST', room),
+		joinRoom: (_, { room }) =>
+			generalRequest(`${URL}`, 'POST', room),	
 		deleteRoom: (_, { roomDelete }) =>
 			generalRequest(`${URL}/${roomDelete.idRoom}`, 'DELETE', roomDelete)
 	}

@@ -14,11 +14,15 @@ type Participant {
     IdParticipant: Int!
 }
 
-input RoomInput {
-    idRoom: Int
+input CreateRoomInput {
     nameRoom: String
     descriptionRoom: String
     idOwner: Int!
+}
+
+input JoinRoomInput {
+    idRoom: Int!
+    idUser: Int!
 }
 
 input RoomDelete {
@@ -33,6 +37,7 @@ export const roomsQueries = `
 `;
 
 export const roomsMutations = `
-    createRoom(room: RoomInput!): Room!
+    createRoom(room: CreateRoomInput!): Room!
+    joinRoom(room: JoinRoomInput!): Room!
     deleteRoom(roomDelete: RoomDelete!): Room!
 `;
