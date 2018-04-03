@@ -44,6 +44,10 @@ const resolvers = {
 					client : headersSession.client,
 					uid : headersSession.uid,
 					access_token: headersSession.token
+				}).then((response) => {
+					resolve(response.body)
+				}).catch((error) => {
+					reject(error)
 				})
 			})
 		}
