@@ -9,22 +9,25 @@ const resolvers = {
         userById: (_, { id }) =>
 			generalRequest(`${URL1}/${id}/`, 'GET'),
 		validateSession: (_, { headersSession }) => {
-			let headers = {
-			'access-token' : headersSession.token,
-			'client' : headersSession.client,
-			'uid' : headersSession.uid
-			}
-			console.log( headersSession )
-			console.log( headers )
-			generalRequest(`${URL}/validate_token`, 'GET', {}, headers).then((response) => {
-				console.log(response)
-				let user = response.body.data
-				user['token'] = response.headers['access-token']
-				user['type'] = response.headers['token-type']
-				user['client'] = response.headers['client']
-				console.log( user )
-				return user
-			})}
+			return new Promise((resolve, reject) => {
+				generalRequest(`${URL}/validate_token`, 'GET', {}, true, {
+					client : headersSession.client,
+					uid : headersSession.uid,
+					access_token: headersSession.token
+				}).then((response) => {
+					let user = response.body.data;
+					user['token'] = response.headers['access-token'];
+					user['type'] = response.headers['token-type'];
+					user['client'] = response.headers['client'];
+					delete user['provider'];
+					delete user['uid'];
+					delete user['allow_password_change'];
+					resolve(user)
+				}).catch((error) => {
+					reject(error)
+				})
+			})
+		}
     },
 	Mutation: {
 		createSession: (_, { session }) =>
@@ -37,11 +40,11 @@ const resolvers = {
 			}),
 		deleteSession: (_, { headersSession }) => {
 			let headers = {
-			'access-token' : headersSession.token,
-			'client' : headersSession.client,
-			'uid' : headersSession.uid
+				'access-token' : headersSession.token,
+				'client' : headersSession.client,
+				'uid' : headersSession.uid
 			}
-			generalRequest(`${URL}/sign_out`, 'DELETE', {}, headers)
+			generalRequest(`${URL}/sign_out`, 'DELETE', {}, false, headers)
 		}
 	}
 };

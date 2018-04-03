@@ -8,7 +8,7 @@ services:
       ROOMS_URL: '192.168.99.101'
       ROOMS_PORT: '4001'
       ROOMS_ENTRY: 'rooms/'
-      BOARD_URL: '192.168.99.101'
+      BOARD_URL: '192.168.99.102'
       BOARD_PORT: '4002'
       BOARD_ENTRY: 'api'
       AUTHENTICATION_URL: '192.168.99.101'
