@@ -39,12 +39,13 @@ const resolvers = {
 				return user
 			}),
 		deleteSession: (_, { headersSession }) => {
-			let headers = {
-				'access-token' : headersSession.token,
-				'client' : headersSession.client,
-				'uid' : headersSession.uid
-			}
-			generalRequest(`${URL}/sign_out`, 'DELETE', {}, false, headers)
+			return new Promise((resolve, reject) => {
+				generalRequest(`${URL}/sign_out`, 'DELETE', {}, true, {
+					client : headersSession.client,
+					uid : headersSession.uid,
+					access_token: headersSession.token
+				})
+			})
 		}
 	}
 };
