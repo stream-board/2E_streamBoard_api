@@ -91,29 +91,3 @@ const resolvers = {
 };
 
 export default resolvers;
-
-/*
-allRooms: (_) =>{
-			return new Promise((resolve, reject) => {
-				generalRequest(`${URL}/`, 'GET').then((response) => {
-					let promiseArray = []
-					let roomArray = []
-					response.forEach((room) => {
-						let promise =  generalRequest(`${usersURL}/${room.idOwner}/`, 'GET')
-						promiseArray.push(promise)
-						roomArray.push(room)
-					})
-					Promise.all(promiseArray).then((values) => {
-						for(let i=0; i<roomArray.length; i++){
-							let room = roomArray[i]
-							let userData = values[i]
-							delete room['idOwner']
-							room['owner'] = userData.data
-							return room
-						}
-						console.log(values)
-						return values
-					})
-				})
-			})
-		}*/
