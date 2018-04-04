@@ -4,8 +4,8 @@ type Room {
     idRoom: Int!
     nameRoom: String!
     descriptionRoom: String
-    idOwner: Int!
-    Participants: [Participant]
+    owner: User
+    Participants: [User]
 }
 
 type Participant {
