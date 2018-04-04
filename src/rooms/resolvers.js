@@ -26,14 +26,26 @@ const resolvers = {
 				let chatRoom = {
 					id: response.idRoom
 				}
-				generalRequest(`${boardURL}/room`, 'POST', boardRoom).then((data) => data)
-				generalRequest(`${chatURL}/`, 'POST', chatRoom)
-				return response
+				return generalRequest(`${boardURL}/room`, 'POST', boardRoom).then(
+          (boardData) =>{
+            return generalRequest(`${chatURL}/`, 'POST', chatRoom).then(
+              (chatData) =>{
+                return response;
+            });
+          });
 			}),
 		joinRoom: (_, { room }) =>
 			generalRequest(`${URL}`, 'POST', room),
 		deleteRoom: (_, { roomDelete }) =>
-			generalRequest(`${URL}/${roomDelete.idRoom}`, 'DELETE', roomDelete)
+			generalRequest(`${URL}/${roomDelete.idRoom}`, 'DELETE', roomDelete).then(
+        (response) => {
+          return generalRequest(`${chatURL}/${response.idRoom}/`, 'DELETE').then(
+            (chatData) => {
+              return response;
+            }
+          );
+        }
+      );
 	}
 };
 
