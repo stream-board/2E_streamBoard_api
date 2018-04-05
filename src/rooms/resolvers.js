@@ -69,6 +69,7 @@ const resolvers = {
 				}
 				return generalRequest(`${boardURL}/room`, 'POST', boardRoom).then(
           (boardData) =>{
+						console.log(boardData)
             return generalRequest(`${chatURL}/`, 'POST', chatRoom).then(
               (chatData) =>{
                 return response;
