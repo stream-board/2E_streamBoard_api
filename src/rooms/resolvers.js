@@ -67,11 +67,14 @@ const resolvers = {
 				let chatRoom = {
 					id: response.idRoom
 				}
-				return generalRequest(`${boardURL}/room`, 'POST', boardRoom).then(
+        return generalRequest(`${boardURL}/room`, 'POST', boardRoom).then(
           (boardData) =>{
             return generalRequest(`${chatURL}/`, 'POST', chatRoom).then(
               (chatData) =>{
-                return response;
+                return generalRequest(`${usersURL}/${response.idOwner}/`, 'GET').then((owner) => {
+                  response.owner = owner.data
+                  return response;
+                })
             })
           })
 			}),
