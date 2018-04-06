@@ -4,6 +4,7 @@ type ChatRoom {
 }
 
 type ChatMessage {
+    id: Int!
     message: String!,
     sender: String!,
 }
