@@ -5,8 +5,8 @@ type ChatRoom {
 
 type ChatMessage {
     id: Int!
-    message: String!,
-    sender: String!,
+    user_id: Int!,
+    message: String!
 }
 
 input ChatRoomInput {
