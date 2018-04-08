@@ -4,6 +4,7 @@ type Room {
     idRoom: Int!
     nameRoom: String!
     descriptionRoom: String
+    categoryRoom: String!
     owner: User
     Participants: [User]
 }
@@ -17,6 +18,7 @@ type Participant {
 input CreateRoomInput {
     nameRoom: String
     descriptionRoom: String
+    categoryRoom: String!
     idOwner: Int!
 }
 
