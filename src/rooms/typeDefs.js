@@ -42,4 +42,5 @@ export const roomsMutations = `
     createRoom(room: CreateRoomInput!): Room!
     joinRoom(room: JoinRoomInput!): Room!
     deleteRoom(roomDelete: RoomDelete!): Room!
+    exitRoom(roomDelete: RoomDelete): Room!
 `;

@@ -90,7 +90,9 @@ const resolvers = {
             }
           )
         }
-      )
+			),
+			exitRoom: (_, { roomDelete }) =>
+				generalRequest(`${URL}/${roomDelete.idRoom}`, 'DELETE', roomDelete),
 	}
 };
 
