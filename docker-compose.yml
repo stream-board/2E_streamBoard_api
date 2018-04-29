@@ -18,3 +18,5 @@ services:
       CHAT_URL: 'ec2-54-224-164-98.compute-1.amazonaws.com'
       CHAT_PORT: '4004'
       CHAT_ENTRY: 'chat-room'
+    ports:
+      - '5000:5000'
