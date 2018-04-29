@@ -6,14 +6,19 @@ import koaCors from '@koa/cors';
 
 import { graphiqlKoa, graphqlKoa } from 'apollo-server-koa';
 import graphQLSchema from './graphQLSchema';
+import { execute, subscribe } from 'graphql';
 
 import { formatErr } from './utilities';
+
+import { SubscriptionServer } from 'subscriptions-transport-ws';
+import { createServer } from 'http';
 
 const app = new Koa();
 const router = new KoaRouter();
 const PORT = process.env.PORT || 5000;
+const SUBSCRIPTIONS_PATH = '/subscriptions';
 
-app.use(koaLogger());
+//app.use(koaLogger());
 app.use(koaCors());
 
 // read token from header
@@ -37,9 +42,27 @@ router.post('/graphql', koaBody(), graphql);
 router.get('/graphql', graphql);
 
 // test route
-router.get('/graphiql', graphiqlKoa({ endpointURL: '/graphql' }));
+router.get('/graphiql', graphiqlKoa({ endpointURL: '/graphql', subscriptionsEndpoint: `ws://localhost:5000/subscriptions` }));
 
 app.use(router.routes());
 app.use(router.allowedMethods());
-// eslint-disable-next-line
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+const server = createServer(app.callback())
+
+server.listen(PORT, () => {
+  console.log(`API Server is now running on http://localhost:${PORT}/graphql`)
+  console.log(`API Subscriptions server is now running on ws://localhost:${PORT}${SUBSCRIPTIONS_PATH}`)
+});
+
+// Subs
+SubscriptionServer.create(
+  {
+    schema: graphQLSchema,
+    execute,
+    subscribe,
+  },
+  {
+    server,
+    path: SUBSCRIPTIONS_PATH,
+  }
+);
