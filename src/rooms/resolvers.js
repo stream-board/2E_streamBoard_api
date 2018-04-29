@@ -75,7 +75,7 @@ const resolvers = {
               (chatData) =>{
                 return generalRequest(`${usersURL}/${response.idOwner}/`, 'GET').then((owner) => {
 									response.owner = owner.data
-									pubsub.publish('roomAdded', response);
+									pubsub.publish('roomAdded', {roomAdded: response});
                   return response;
                 })
             })
