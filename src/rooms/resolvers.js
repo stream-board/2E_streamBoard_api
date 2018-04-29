@@ -98,7 +98,10 @@ const resolvers = {
 	},
 	Subscription: {
 		roomAdded: {
-			subscribe: () => pubsub.asyncIterator('roomAdded')
+			subscribe: () => {
+				console.log('subscription')
+				pubsub.asyncIterator('roomAdded')
+			}
 		}
 	}
 };
