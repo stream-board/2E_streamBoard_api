@@ -78,7 +78,7 @@ export function mergeSchemas(typeDefs, queries, mutations, subscriptions) {
 	return `${typeDefs.join('\n')}
     type Query { ${queries.join('\n')} }
 		type Mutation { ${mutations.join('\n')} }
-		type Subscription { ${subscriptions.join('\n')}}`;
+		type Subscription { ${subscriptions.join('\n')} }`;
 }
 
 export function formatErr(error) {

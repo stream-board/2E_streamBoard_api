@@ -11,11 +11,14 @@ import { execute, subscribe } from 'graphql';
 import { formatErr } from './utilities';
 
 import { SubscriptionServer } from 'subscriptions-transport-ws';
+import { createServer } from 'http';
 
 const app = new Koa();
 const router = new KoaRouter();
 const PORT = process.env.PORT || 5000;
+const SUBSCRIPTIONS_PATH = '/subscriptions';
 
+//app.use(koaLogger());
 app.use(koaCors());
 
 // read token from header
@@ -43,19 +46,23 @@ router.get('/graphiql', graphiqlKoa({ endpointURL: '/graphql', subscriptionsEndp
 
 app.use(router.routes());
 app.use(router.allowedMethods());
-// eslint-disable-next-line
-app.listen(PORT, () => {
-	console.log(`Server running on port ${PORT}`);
-	const subscriptionServer = SubscriptionServer.create(
-		{
-			schema: graphQLSchema,
-			execute,
-			subscribe,
-		},
-		{
-			server: app,
-			path: '/subscriptions',
-		},
-	);
+
+const server = createServer(app.callback())
+
+server.listen(PORT, () => {
+  console.log(`API Server is now running on http://localhost:${PORT}/graphql`)
+  console.log(`API Subscriptions server is now running on ws://localhost:${PORT}${SUBSCRIPTIONS_PATH}`)
 });
 
+// Subs
+SubscriptionServer.create(
+  {
+    schema: graphQLSchema,
+    execute,
+    subscribe,
+  },
+  {
+    server,
+    path: SUBSCRIPTIONS_PATH,
+  }
+);
