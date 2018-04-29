@@ -6,8 +6,11 @@ import koaCors from '@koa/cors';
 
 import { graphiqlKoa, graphqlKoa } from 'apollo-server-koa';
 import graphQLSchema from './graphQLSchema';
+import { execute, subscribe } from 'graphql';
 
 import { formatErr } from './utilities';
+
+import { SubscriptionServer } from 'subscriptions-transport-ws';
 
 const app = new Koa();
 const router = new KoaRouter();
@@ -37,9 +40,23 @@ router.post('/graphql', koaBody(), graphql);
 router.get('/graphql', graphql);
 
 // test route
-router.get('/graphiql', graphiqlKoa({ endpointURL: '/graphql' }));
+router.get('/graphiql', graphiqlKoa({ endpointURL: '/graphql', subscriptionsEndpoint: `ws://localhost:5000/subscriptions` }));
 
 app.use(router.routes());
 app.use(router.allowedMethods());
 // eslint-disable-next-line
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, () => {
+	console.log(`Server running on port ${PORT}`);
+	const subscriptionServer = SubscriptionServer.create(
+		{
+			schema: graphQLSchema,
+			execute,
+			subscribe,
+		},
+		{
+			server: app,
+			path: '/subscriptions',
+		},
+	);
+});
+

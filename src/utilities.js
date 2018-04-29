@@ -74,10 +74,11 @@ export function getRequest(url, path, parameters) {
  * @param {Array<string>} mutations
  * @return {string}
  */
-export function mergeSchemas(typeDefs, queries, mutations) {
+export function mergeSchemas(typeDefs, queries, mutations, subscriptions) {
 	return `${typeDefs.join('\n')}
     type Query { ${queries.join('\n')} }
-    type Mutation { ${mutations.join('\n')} }`;
+		type Mutation { ${mutations.join('\n')} }
+		type Subscription { ${subscriptions.join('\n')}}`;
 }
 
 export function formatErr(error) {

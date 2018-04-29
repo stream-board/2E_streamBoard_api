@@ -1,5 +1,6 @@
 import { generalRequest, getRequest } from '../utilities';
 import { url, port, entryPoint } from './server';
+import { PubSub, withFilter } from 'graphql-subscriptions';
 import * as users from '../sessions/server';
 import * as chat from '../chat/server';
 import * as board from '../board/server';
@@ -8,6 +9,7 @@ const URL = `http://${url}:${port}/${entryPoint}`;
 const usersURL = `http://${users.url}:${users.port}/${users.entryPoint1}`;
 const chatURL = `http://${chat.url}:${chat.port}/${chat.entryPoint}`;
 const boardURL = `http://${board.url}:${board.port}/${board.entryPoint}`;
+const pubsub = new PubSub();
 
 const resolvers = {
 	Query: {
@@ -67,13 +69,13 @@ const resolvers = {
 				let chatRoom = {
 					id: response.idRoom
 				}
-
 				return generalRequest(`${boardURL}/room`, 'POST', boardRoom).then(
           (boardData) =>{
             return generalRequest(`${chatURL}/`, 'POST', chatRoom).then(
               (chatData) =>{
                 return generalRequest(`${usersURL}/${response.idOwner}/`, 'GET').then((owner) => {
-                  response.owner = owner.data
+									response.owner = owner.data
+									pubsub.publish('roomAdded', response);
                   return response;
                 })
             })
@@ -93,6 +95,11 @@ const resolvers = {
 			),
 			exitRoom: (_, { roomDelete }) =>
 				generalRequest(`${URL}/${roomDelete.idRoom}`, 'DELETE', roomDelete),
+	},
+	Subscription: {
+		roomAdded: {
+			subscribe: () => pubsub.asyncIterator('roomAdded')
+		}
 	}
 };
 

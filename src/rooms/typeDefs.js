@@ -44,3 +44,7 @@ export const roomsMutations = `
     deleteRoom(roomDelete: RoomDelete!): Room!
     exitRoom(roomDelete: RoomDelete): Room!
 `;
+
+export const roomsSubscriptions = `
+    roomAdded: Room
+`
