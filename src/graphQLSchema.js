@@ -29,10 +29,16 @@ import {
   chatTypeDef
 } from './chat/typeDefs';
 
+import { 
+	authMutations,
+	authTypeDef
+ } from './auth/typeDefs';
+
 import sessionsResolvers from './sessions/resolvers';
 import roomsResolvers from './rooms/resolvers';
 import boardResolvers from './board/resolvers';
 import chatResolvers from './chat/resolvers';
+import authResolvers from './auth/resolvers';
 
 // merge the typeDefs
 const mergedTypeDefs = mergeSchemas(
@@ -41,7 +47,8 @@ const mergedTypeDefs = mergeSchemas(
 		sessionsTypeDef,
 		roomsTypeDef,
 		boardTypeDef,
-    chatTypeDef
+		chatTypeDef,
+		authTypeDef
 	],
 	[
 		sessionsQueries,
@@ -52,7 +59,8 @@ const mergedTypeDefs = mergeSchemas(
 		sessionsMutations,
 		roomsMutations,
 		boardMutations,
-    chatMutations
+		chatMutations,
+		authMutations
 	],
 	[
 		roomsSubscriptions
@@ -67,6 +75,7 @@ export default makeExecutableSchema({
 		roomsResolvers,
 		sessionsResolvers,
 		boardResolvers,
-    chatResolvers
+		chatResolvers,
+		authResolvers
 	)
 });
