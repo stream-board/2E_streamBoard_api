@@ -36,6 +36,7 @@ input RoomDelete {
 export const roomsQueries = `
     allRooms: [Room]!
     roomById(id: Int!): Room!
+    participantsById(id: Int!): [User]
 `;
 
 export const roomsMutations = `

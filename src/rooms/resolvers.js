@@ -57,6 +57,28 @@ const resolvers = {
 					})
 				})
 			})
+		},
+		participantsById: (_, { id }) => {
+			return new Promise((resolve, reject) => {
+				generalRequest(`${URL}/${id}`, 'GET').then((response) => {
+					let promiseArray = []
+					let participants = response.Participants
+					participants.forEach((participant) => {
+						let promise =  generalRequest(`${usersURL}/${participant.idParticipant}/`, 'GET')
+						promiseArray.push(promise)
+					})
+					Promise.all(promiseArray).then((values) => {
+						let result = []
+						values.forEach((user) => {
+							result.push(user.data)
+						})
+						generalRequest(`${usersURL}/${response.idOwner}/`, 'GET').then((owner) => {
+							result.push(owner.data)
+							resolve(result)
+						})
+					})
+				})
+			})
 		}
 	},
 	Mutation: {
