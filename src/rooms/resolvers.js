@@ -130,11 +130,7 @@ const resolvers = {
 		participantJoined: {
 			subscribe: withFilter(
         () => pubsub.asyncIterator('participantJoined'),
-        (payload, variables) => {
-					console.log(payload)
-					console.log(variables)
-					return payload.roomId === variables.roomId
-				},
+        (payload, variables) => payload.roomId === variables.roomId,
 			)
 		}
 	}
