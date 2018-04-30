@@ -106,7 +106,6 @@ const resolvers = {
 		joinRoom: (_, { room }) =>
 			generalRequest(`${URL}`, 'POST', room).then((response) => {
 				return generalRequest(`${usersURL}/${room.idOwner}/`, 'GET').then((userData) => {
-					console.log(userData.data)
 					pubsub.publish('participantJoined', {participantJoined: userData.data, roomId: room.idRoom});
 					return response
 				})
@@ -131,7 +130,11 @@ const resolvers = {
 		participantJoined: {
 			subscribe: withFilter(
         () => pubsub.asyncIterator('participantJoined'),
-        (payload, variables) => payload.roomId === variables.roomId,
+        (payload, variables) => {
+					console.log(payload)
+					console.log(variables)
+					return payload.roomId === variables.roomId
+				},
 			)
 		}
 	}
