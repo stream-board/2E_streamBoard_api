@@ -49,4 +49,5 @@ export const roomsMutations = `
 export const roomsSubscriptions = `
     roomAdded: Room
     participantJoined(roomId: Int!): User
+    participantLeft(roomId: Int!): Int
 `
