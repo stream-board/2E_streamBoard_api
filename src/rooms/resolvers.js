@@ -82,7 +82,13 @@ const resolvers = {
           })
 			}),
 		joinRoom: (_, { room }) =>
-			generalRequest(`${URL}`, 'POST', room),
+			generalRequest(`${URL}`, 'POST', room).then((response) => {
+				return generalRequest(`${usersURL}/${room.idOwner}/`, 'GET').then((userData) => {
+					console.log(userData.data)
+					pubsub.publish('participantJoined', {participantJoined: userData.data});
+					return response
+				})
+			}),
 		deleteRoom: (_, { roomDelete }) =>
 			generalRequest(`${URL}/${roomDelete.idRoom}`, 'DELETE', roomDelete).then(
         (response) => {
@@ -99,6 +105,9 @@ const resolvers = {
 	Subscription: {
 		roomAdded: {
 			subscribe: () => pubsub.asyncIterator('roomAdded')
+		},
+		participantJoined: {
+			subscribe: () => pubsub.asyncIterator('participantJoined')
 		}
 	}
 };

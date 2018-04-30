@@ -47,4 +47,5 @@ export const roomsMutations = `
 
 export const roomsSubscriptions = `
     roomAdded: Room
+    participantJoined: User
 `
