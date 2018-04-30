@@ -122,7 +122,7 @@ const resolvers = {
 			),
 			exitRoom: (_, { roomDelete }) =>
 				generalRequest(`${URL}/${roomDelete.idRoom}`, 'DELETE', roomDelete).then((response) => {
-					pubsub.publish('participantLeft', {participantLeft: roomDelete, roomId: roomDelete.idRoom});
+					pubsub.publish('participantLeft', {participantLeft: roomDelete.idOwner, roomId: roomDelete.idRoom});
 					return response
 				})
 	},
