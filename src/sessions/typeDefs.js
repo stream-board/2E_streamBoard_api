@@ -1,5 +1,5 @@
 export const sessionsTypeDef = `
-type User{
+type User {
     id: Int!
     email: String!
     provider: String!
@@ -8,7 +8,7 @@ type User{
     image: String
 }
 
-type LoginData{
+type LoginData {
     id: Int!
     email: String!
     name: String!
@@ -19,7 +19,7 @@ type LoginData{
     client: String!
 }
 
-type Data{
+type Data {
     data: User! 
 }
 
@@ -45,6 +45,5 @@ export const sessionsQueries = `
 `;
 
 export const sessionsMutations = `
-    createSession(session: SessionInput!): LoginData!
     deleteSession(headersSession: Headers!): Success!
 `;

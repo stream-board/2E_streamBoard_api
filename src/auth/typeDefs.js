@@ -4,12 +4,24 @@ export const authTypeDef = `
         password: String!
         answer: String!
     }
+
     input AuthInput {
         email: String!
         password: String!
     }
+    
+    type LoginData {
+        id: Int!
+        email: String!
+        name: String!
+        nickname: String!
+        image: String
+        token: String!
+        type: String!
+        client: String!
+    }
 `;
 
 export const authMutations = `
-    auth(auth: AuthInput!): Auth!
+    createSession(session: AuthInput!): LoginData!
 `;
