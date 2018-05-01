@@ -42,6 +42,7 @@ router.post('/graphql', koaBody(), graphql);
 router.get('/graphql', graphql);
 
 // test route
+//HELp
 router.get('/graphiql', graphiqlKoa({ endpointURL: '/graphql', subscriptionsEndpoint: `ws://35.190.138.158/subscriptions` }));
 
 app.use(router.routes());
