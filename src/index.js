@@ -42,7 +42,7 @@ router.post('/graphql', koaBody(), graphql);
 router.get('/graphql', graphql);
 
 // test route
-router.get('/graphiql', graphiqlKoa({ endpointURL: '/graphql', subscriptionsEndpoint: `ws://ec2-35-168-17-78.compute-1.amazonaws.com:5000/subscriptions` }));
+router.get('/graphiql', graphiqlKoa({ endpointURL: '/graphql', subscriptionsEndpoint: `ws://35.190.138.158/subscriptions` }));
 
 app.use(router.routes());
 app.use(router.allowedMethods());
