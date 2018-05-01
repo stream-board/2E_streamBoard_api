@@ -67,3 +67,5 @@ SubscriptionServer.create(
     path: SUBSCRIPTIONS_PATH,
   }
 );
+
+console.log(SubscriptionServer)
