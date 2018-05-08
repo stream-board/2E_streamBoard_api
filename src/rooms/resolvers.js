@@ -128,7 +128,9 @@ const resolvers = {
 		banParticipant: (_, {bannedParticipant}) =>
 			generalRequest(`${URL}/${bannedParticipant.idRoom}/ban`, 'POST', bannedParticipant).then((response) => {
 				pubsub.publish('participantLeft', {participantLeft: bannedParticipant.idParticipant, roomId: bannedParticipant.idRoom});
-				return response
+				return generalRequest(`${URL}/${roomDelete.idRoom}`, 'DELETE', {idRoom: bannedParticipant.idRoom, idOwner: bannedParticipant.idParticipant}).then((response) => {
+					return bannedParticipant.idParticipant
+				})
 			})
 	},
 	Subscription: {
