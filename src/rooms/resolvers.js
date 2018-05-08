@@ -120,11 +120,16 @@ const resolvers = {
           )
         }
 			),
-			exitRoom: (_, { roomDelete }) =>
-				generalRequest(`${URL}/${roomDelete.idRoom}`, 'DELETE', roomDelete).then((response) => {
-					pubsub.publish('participantLeft', {participantLeft: roomDelete.idOwner, roomId: roomDelete.idRoom});
-					return response
-				})
+		exitRoom: (_, { roomDelete }) =>
+			generalRequest(`${URL}/${roomDelete.idRoom}`, 'DELETE', roomDelete).then((response) => {
+				pubsub.publish('participantLeft', {participantLeft: roomDelete.idOwner, roomId: roomDelete.idRoom});
+				return response
+			}),
+		banParticipant: (_, {bannedParticipant}) =>
+			generalRequest(`${URL}/${bannedParticipant.idRoom}/ban`, 'POST', bannedParticipant).then((response) => {
+				pubsub.publish('participantLeft', {participantLeft: bannedParticipant.idParticipant, roomId: bannedParticipant.idRoom});
+				return response
+			})
 	},
 	Subscription: {
 		roomAdded: {

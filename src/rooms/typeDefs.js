@@ -31,6 +31,12 @@ input RoomDelete {
   idRoom: Int!,
   idOwner: Int!
 }
+
+input BannedParticipant {
+    idRoom: Int!,
+    idParticipant: Int!
+}
+
 `;
 
 export const roomsQueries = `
@@ -44,6 +50,7 @@ export const roomsMutations = `
     joinRoom(room: JoinRoomInput!): Room!
     deleteRoom(roomDelete: RoomDelete!): Room!
     exitRoom(roomDelete: RoomDelete): Room!
+    banParticipant(bannedParticipant: BannedParticipant):  Int
 `;
 
 export const roomsSubscriptions = `
