@@ -13,7 +13,8 @@ const pubsub = new PubSub();
 
 const resolvers = {
 	Query: {
-		allRooms: (_) =>{
+		allRooms: (_, {}, context) =>{
+			console.log(context);
 			return new Promise((resolve, reject) => {
 				generalRequest(`${URL}/`, 'GET').then((response) => {
 					let promiseArray = []
