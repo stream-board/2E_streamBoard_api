@@ -31,20 +31,21 @@ app.use(async (ctx, next) => {
   if(operation == 'CreateSessionMutation'){
     console.log('LOGIN');
     await next();
-  }
-	if (ctx.header['access-token']) {
-    console.log(ctx.header);
-		const token = ctx.header['access-token'];
-    const uid = ctx.header['uid'];
-    const client = ctx.header['client'];
-    let isValid = validateToken(token, uid, client);
-    if(isValid){
-      await next();
+  } else {
+    if (ctx.header['access-token']) {
+      console.log(ctx.header);
+      const token = ctx.header['access-token'];
+      const uid = ctx.header['uid'];
+      const client = ctx.header['client'];
+      let isValid = validateToken(token, uid, client);
+      if(isValid){
+        await next();
+      } else {
+        ctx.throw(401, 'Not authorized');
+      }
     } else {
       ctx.throw(401, 'Not authorized');
     }
-	} else {
-    ctx.throw(401, 'Not authorized');
   }
 });
 
