@@ -7,7 +7,7 @@ import { graphiqlKoa, graphqlKoa } from 'apollo-server-koa';
 import graphQLSchema from './graphQLSchema';
 import { execute, subscribe } from 'graphql';
 
-import { formatErr } from './utilities';
+import { formatErr, validateToken } from './utilities';
 
 import { SubscriptionServer } from 'subscriptions-transport-ws';
 import { createServer } from 'http';
@@ -26,17 +26,22 @@ app.use(bodyParser());
 
 // read token from header
 app.use(async (ctx, next) => {
-  console.log(ctx.request.body)
-  console.log(ctx.req);
-  console.log("RESPONSE*********");
-  console.log(ctx.res);
-	if (ctx.header.authorization) {
-		const token = ctx.header.authorization.match(/Bearer ([A-Za-z0-9]+)/);
-		if (token && token[1]) {
-			ctx.state.token = token[1];
-		}
+  let operation = ctx.request.body.operationName;
+  if(operation == 'CreateSessionMutation'){
+    console.log('LOGIN');
+    await next();
+  }
+	if (ctx.header['access-token']) {
+		const token = ctx.header['access-token'];
+    const uid = ctx.header['uid'];
+    const client = ctx.header['client'];
+    let isValid = validateToken(token, uid, client);
+    if(isValid){
+      await next();
+    } else {
+      ctx.throw(401, 'Not authorized');
+    }
 	}
-	await next();
 });
 
 // GraphQL
