@@ -26,7 +26,7 @@ app.use(bodyParser());
 
 // read token from header
 app.use(async (ctx, next) => {
-  console.log(ctx.request.body);
+  console.log(ctx.request.body)
   console.log(ctx.req);
   console.log("RESPONSE*********");
   console.log(ctx.res);
@@ -45,7 +45,7 @@ const graphql = graphqlKoa((ctx) => ({
 	context: { token: ctx.state.token },
 	formatError: formatErr
 }));
-router.post('/graphql', koaBody(), graphql);
+router.post('/graphql', bodyParser(), graphql);
 router.get('/graphql', graphql);
 
 // test route
