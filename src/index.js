@@ -28,7 +28,7 @@ app.use(bodyParser());
 app.use(async (ctx, next) => {
   let operation = ctx.request.body.operationName;
   console.log(operation)
-  if(operation == 'CreateSessionMutation'){
+  if(operation == 'CreateSessionMutation' || operation == 'ValidateTokenQuery'){
     console.log('LOGIN');
     await next();
   } else {
