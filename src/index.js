@@ -27,11 +27,13 @@ app.use(bodyParser());
 // read token from header
 app.use(async (ctx, next) => {
   let operation = ctx.request.body.operationName;
+  console.log(operation)
   if(operation == 'CreateSessionMutation'){
     console.log('LOGIN');
     await next();
   }
 	if (ctx.header['access-token']) {
+    console.log(ctx.header);
 		const token = ctx.header['access-token'];
     const uid = ctx.header['uid'];
     const client = ctx.header['client'];
@@ -41,7 +43,9 @@ app.use(async (ctx, next) => {
     } else {
       ctx.throw(401, 'Not authorized');
     }
-	}
+	} else {
+    ctx.throw(401, 'Not authorized');
+  }
 });
 
 // GraphQL
