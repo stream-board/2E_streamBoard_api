@@ -37,12 +37,12 @@ app.use(async (ctx, next) => {
       const token = ctx.header['access-token'];
       const uid = ctx.header['uid'];
       const client = ctx.header['client'];
-      let isValid = validateToken(token, uid, client);
-      if(isValid){
+      validateToken(token, uid, client).then((response) => {
         await next();
-      } else {
+      }).catch((err) => {
+        console.log(err)
         ctx.throw(401, 'Not authorized');
-      }
+      })
     } else {
       ctx.throw(401, 'Not authorized');
     }

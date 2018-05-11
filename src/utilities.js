@@ -97,15 +97,17 @@ export function formatErr(error) {
 }
 
 export function validateToken(token, uid, client){
-	generalRequest(`${validationURL}`, 'GET', {}, false, {
-		client : client,
-		uid : uid,
-		access_token: token
-	}).then((response) => {
-		console.log(response)
-		return true;
-	}).catch((error) => {
-		console.log(error)
-		return false;
+	return new Promise((resolve, reject) => {
+		generalRequest(`${validationURL}`, 'GET', {}, false, {
+			client : client,
+			uid : uid,
+			access_token: token
+		}).then((response) => {
+			console.log(response);
+			resolve(true);
+		}).catch((error) => {
+			console.log(error);
+			reject(error);
+		})
 	})
 }
