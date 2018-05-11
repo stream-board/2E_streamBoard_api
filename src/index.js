@@ -25,7 +25,7 @@ app.use(koaCors());
 app.use(bodyParser());
 
 // read token from header
-app.use((ctx, next) => {
+/* app.use((ctx, next) => {
   let operation = ctx.request.body.operationName;
   console.log(operation)
   if(operation == 'CreateSessionMutation' || operation == 'ValidateTokenQuery'){
@@ -47,7 +47,7 @@ app.use((ctx, next) => {
       ctx.throw(401, 'Not authorized');
     }
   }
-});
+}); */
 
 // GraphQL
 const graphql = graphqlKoa((ctx) => ({
