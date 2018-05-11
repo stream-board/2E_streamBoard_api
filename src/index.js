@@ -25,12 +25,12 @@ app.use(koaCors());
 app.use(bodyParser());
 
 // read token from header
-app.use(async (ctx, next) => {
+app.use((ctx, next) => {
   let operation = ctx.request.body.operationName;
   console.log(operation)
   if(operation == 'CreateSessionMutation' || operation == 'ValidateTokenQuery'){
     console.log('LOGIN');
-    await next();
+    next();
   } else {
     if (ctx.header['access-token']) {
       console.log(ctx.header);
@@ -38,7 +38,7 @@ app.use(async (ctx, next) => {
       const uid = ctx.header['uid'];
       const client = ctx.header['client'];
       validateToken(token, uid, client).then((response) => {
-        await next();
+        next();
       }).catch((err) => {
         console.log(err)
         ctx.throw(401, 'Not authorized');
