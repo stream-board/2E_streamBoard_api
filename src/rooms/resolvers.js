@@ -4,12 +4,17 @@ import { PubSub, withFilter } from 'graphql-subscriptions';
 import * as users from '../sessions/server';
 import * as chat from '../chat/server';
 import * as board from '../board/server';
+import { socket } from '../sockets';
 
 const URL = `http://${url}:${port}/${entryPoint}`;
 const usersURL = `http://${users.url}:${users.port}/${users.entryPoint1}`;
 const chatURL = `http://${chat.url}:${chat.port}/${chat.entryPoint}`;
 const boardURL = `http://${board.url}:${board.port}/${board.entryPoint}`;
 const pubsub = new PubSub();
+
+socket.on('event', function(event){
+	pubsub.publish(event.type, event.load);
+})
 
 const resolvers = {
 	Query: {
@@ -98,6 +103,10 @@ const resolvers = {
                 return generalRequest(`${usersURL}/${response.idOwner}/`, 'GET').then((owner) => {
 									response.owner = owner.data
 									pubsub.publish('roomAdded', {roomAdded: response});
+									socket.emit('event', {
+										type: 'roomAdded',
+										load: {roomAdded: response}
+									});
                   return response;
                 })
             })
@@ -107,6 +116,10 @@ const resolvers = {
 			generalRequest(`${URL}`, 'POST', room).then((response) => {
 				return generalRequest(`${usersURL}/${room.idOwner}/`, 'GET').then((userData) => {
 					pubsub.publish('participantJoined', {participantJoined: userData.data, roomId: room.idRoom});
+					socket.emit('event', {
+						type: 'participantJoined',
+						load: {participantJoined: userData.data, roomId: room.idRoom}
+					});
 					return response
 				})
 			}),
@@ -123,11 +136,19 @@ const resolvers = {
 		exitRoom: (_, { roomDelete }) =>
 			generalRequest(`${URL}/${roomDelete.idRoom}`, 'DELETE', roomDelete).then((response) => {
 				pubsub.publish('participantLeft', {participantLeft: roomDelete.idOwner, roomId: roomDelete.idRoom});
+				socket.emit('event', {
+					type: 'participantLeft',
+					load: {participantLeft: roomDelete.idOwner, roomId: roomDelete.idRoom}
+				});
 				return response
 			}),
 		banParticipant: (_, {bannedParticipant}) =>
 			generalRequest(`${URL}/${bannedParticipant.idRoom}/ban`, 'POST', bannedParticipant).then((response) => {
 				pubsub.publish('participantLeft', {participantLeft: bannedParticipant.idParticipant, roomId: bannedParticipant.idRoom});
+				socket.emit('event', {
+					type: 'participantLeft',
+					load: {participantLeft: bannedParticipant.idParticipant, roomId: bannedParticipant.idRoom}
+				});
 				return generalRequest(`${URL}/${bannedParticipant.idRoom}`, 'DELETE', {idRoom: bannedParticipant.idRoom, idOwner: bannedParticipant.idParticipant}).then((response) => {
 					return bannedParticipant.idParticipant
 				})
