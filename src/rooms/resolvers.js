@@ -129,6 +129,10 @@ const resolvers = {
           return generalRequest(`${chatURL}/${response.idRoom}/`, 'DELETE').then(
             (chatData) => {
 							pubsub.publish('roomDeleted', { roomDeleted: response });
+							socket.emit('event', {
+								type: 'roomDeleted',
+								load: { roomDeleted: response }
+							});
               return response;
             }
           )
