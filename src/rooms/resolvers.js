@@ -12,6 +12,11 @@ const chatURL = `http://${chat.url}:${chat.port}/${chat.entryPoint}`;
 const boardURL = `http://${board.url}:${board.port}/${board.entryPoint}`;
 const pubsub = new PubSub();
 
+var io = require('socket.io-client');
+const socket = io.connect('http://stream-board-subscriptions-socket-server:5000', {reconnect: true});
+
+console.log(socket)
+
 socket.on('event', function(event){
 	pubsub.publish(event.type, event.load);
 })
