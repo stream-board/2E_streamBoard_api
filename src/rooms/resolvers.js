@@ -12,7 +12,7 @@ const boardURL = `http://${board.url}:${board.port}/${board.entryPoint}`;
 const pubsub = new PubSub();
 
 var io = require('socket.io-client');
-const socket = io.connect('http://stream-board-subscriptions-socket-server:5555', {reconnect: true});
+const socket = io.connect('http://35.231.29.114:5555', {reconnect: true});
 
 console.log(socket)
 
