@@ -57,4 +57,5 @@ export const roomsSubscriptions = `
     roomAdded: Room
     participantJoined(roomId: Int!): User
     participantLeft(roomId: Int!): Int
+    roomDeleted(roomId: Int!): Room
 `

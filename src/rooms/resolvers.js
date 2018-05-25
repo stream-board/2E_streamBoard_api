@@ -115,6 +115,7 @@ const resolvers = {
         (response) => {
           return generalRequest(`${chatURL}/${response.idRoom}/`, 'DELETE').then(
             (chatData) => {
+							pubsub.publish('roomDeleted', { roomDeleted: response });
               return response;
             }
           )
@@ -148,6 +149,9 @@ const resolvers = {
         () => pubsub.asyncIterator('participantLeft'),
         (payload, variables) => payload.roomId === variables.roomId,
 			)
+		},
+		roomDeleted: {
+			subscribe: () => pubsub.asyncIterator('roomDeleted')
 		}
 	}
 };
