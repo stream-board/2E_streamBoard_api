@@ -4,7 +4,6 @@ import { PubSub, withFilter } from 'graphql-subscriptions';
 import * as users from '../sessions/server';
 import * as chat from '../chat/server';
 import * as board from '../board/server';
-import { socket } from '../sockets';
 
 const URL = `http://${url}:${port}/${entryPoint}`;
 const usersURL = `http://${users.url}:${users.port}/${users.entryPoint1}`;
